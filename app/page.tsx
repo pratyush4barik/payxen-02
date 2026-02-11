@@ -1,65 +1,146 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React from "react";
+import { useRouter } from 'next/navigation';
+
+// Define the LandingPage component at the top level
+const LandingPage: React.FC<{ handleLogin: () => void  ; handleSignup: () => void }> = ({ handleLogin, handleSignup })=> {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <header className="border-b border-slate-200 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+          <div className="flex items-center gap-2">
+            <div className="h-9 w-9 rounded-xl bg-indigo-600" />
+            <span className="text-lg font-semibold tracking-tight">SubWallet</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-indigo-300 hover:text-indigo-600"
+              onClick={handleLogin} // Attach the handleLogin function here
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Login
+            </button>
+            <button
+              type="button"
+              className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500"
+            onClick={handleSignup}
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              Sign Up
+            </button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </header>
+
+      <main>
+        <section className="mx-auto w-full max-w-6xl px-4 pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-24">
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            <div>
+              <p className="mb-4 inline-flex rounded-full bg-indigo-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-700">
+                Digital Wallet + Subscriptions
+              </p>
+              <h1 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+                Control every recurring payment from one secure student wallet.
+              </h1>
+              <p className="mt-4 max-w-xl text-base text-slate-600 sm:text-lg">
+                SubWallet helps students manage subscriptions, hold funds in an escrow-style
+                flow, and release payments only when charges are validated.
+              </p>
+              <button
+                type="button"
+                className="mt-8 rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-indigo-500"
+              onClick={handleSignup}
+              >
+                Get Started
+              </button>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
+              <div className="space-y-4">
+                <div className="rounded-2xl border border-indigo-100 bg-indigo-50 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-700">
+                    Wallet Balance
+                  </p>
+                  <p className="mt-2 text-3xl font-semibold">$1,420.50</p>
+                  <p className="mt-1 text-sm text-slate-600">Available for verified payments</p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 p-4">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium text-slate-700">Netflix Student</span>
+                    <span className="font-semibold text-indigo-600">Queued</span>
+                  </div>
+                  <p className="mt-2 text-xs text-slate-500">
+                    Escrow release planned after renewal check
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 p-4">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium text-slate-700">Notion Pro</span>
+                    <span className="font-semibold text-indigo-600">Protected</span>
+                  </div>
+                  <p className="mt-2 text-xs text-slate-500">
+                    Charge held until usage cycle confirms
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white">
+          <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+            <div className="mb-8 max-w-2xl">
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                Built for smarter subscription control
+              </h2>
+              <p className="mt-3 text-sm text-slate-600 sm:text-base">
+                A clean student-focused wallet interface with escrow-inspired transaction safety.
+              </p>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-slate-900">Virtual Wallet</h3>
+                <p className="mt-3 text-sm text-slate-600">
+                  Keep your balance organized for tuition tools, streaming, and campus services.
+                </p>
+              </article>
+              <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-slate-900">Auto Subscriptions</h3>
+                <p className="mt-3 text-sm text-slate-600">
+                  Track recurring plans with clear schedules and simplified renewal visibility.
+                </p>
+              </article>
+              <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-slate-900">Secure Escrow Ledger</h3>
+                <p className="mt-3 text-sm text-slate-600">
+                  Hold funds before release so every payment follows a transparent verification flow.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <footer className="border-t border-slate-200 bg-slate-50">
+        <div className="mx-auto w-full max-w-6xl px-4 py-8 text-sm text-slate-500 sm:px-6">
+          © 2026 SubWallet. All rights reserved.
+        </div>
+      </footer>
     </div>
   );
+};
+
+// Use the LandingPage component directly
+export default function LandingPageWrapper() {
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push('/login'); // Navigate to the login page
+  };
+  
+  const handleSignup = () => {
+    router.push('/signup'); //Navigate to sign up page
+  };
+
+  return <LandingPage handleLogin={handleLogin} handleSignup={handleSignup} />;
 }
