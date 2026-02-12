@@ -1,22 +1,54 @@
-import {FcGoogle} from "react-icons/fc";
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+"use client";
+
+import React, { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import React from "react"
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client"; // make sure this exists
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // prevent page reload
+    setErrorMessage("");
+
+    const { data, error } = await authClient.signIn.email({
+      email,
+      password,
+    });
+
+    if (error) {
+    setErrorMessage(error?.message || "Invalid email or password");
+    return;
+  }
+
+    // redirect after successful login
+    router.push("/dashboard");
+  };
+
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form
+      onSubmit={handleSubmit}
+      className={cn("flex flex-col gap-6", className)}
+      {...props}
+    >
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Login to your account</h1>
@@ -24,10 +56,19 @@ export function LoginForm({
             Enter your email below to login to your account
           </p>
         </div>
+
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input
+            id="email"
+            type="email"
+            placeholder="m@example.com"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </Field>
+
         <Field>
           <div className="flex items-center">
             <FieldLabel htmlFor="password">Password</FieldLabel>
@@ -38,17 +79,38 @@ export function LoginForm({
               Forgot your password?
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <Input
+            id="password"
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </Field>
+
+        {errorMessage && (
+          <p className="text-sm text-red-500 text-center">{errorMessage}</p>
+        )}
+
         <Field>
-          <Button type="submit">Login</Button>
+          <Button type="submit" className="w-full">
+            Login
+          </Button>
         </Field>
+
         <FieldSeparator>Or continue with</FieldSeparator>
+
         <Field>
-          <Button variant="outline" type="button">
-            <FcGoogle/>
+          <Button
+            variant="outline"
+            type="button"
+            onClick={() => authClient.signIn.social({ provider: "google" })}
+            className="w-full"
+          >
+            <FcGoogle />
             Login with Google
           </Button>
+
           <FieldDescription className="text-center">
             Don&apos;t have an account?{" "}
             <a href="/signup" className="underline underline-offset-4">
@@ -58,5 +120,5 @@ export function LoginForm({
         </Field>
       </FieldGroup>
     </form>
-  )
+  );
 }
