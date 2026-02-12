@@ -29,9 +29,10 @@ export function LoginForm({
     e.preventDefault(); // prevent page reload
     setErrorMessage("");
 
-    const { data, error } = await authClient.signIn.email({
+    const { error } = await authClient.signIn.email({
       email,
       password,
+      callbackURL: "/dashboard",
     });
 
     if (error) {
@@ -41,6 +42,17 @@ export function LoginForm({
 
     // redirect after successful login
     router.push("/dashboard");
+  };
+
+  const handleGoogleSignIn = async () => {
+    setErrorMessage("");
+    const { error } = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/dashboard",
+    });
+    if (error) {
+      setErrorMessage(error.message || "Google login failed");
+    }
   };
 
   return (
@@ -104,7 +116,7 @@ export function LoginForm({
           <Button
             variant="outline"
             type="button"
-            onClick={() => authClient.signIn.social({ provider: "google" })}
+            onClick={handleGoogleSignIn}
             className="w-full"
           >
             <FcGoogle />

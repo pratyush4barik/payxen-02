@@ -40,10 +40,11 @@ export function SignupForm({
 
     setLoading(true);
 
-    const { data, error } = await authClient.signUp.email({
+    const { error } = await authClient.signUp.email({
       name,
       email,
       password,
+      callbackURL: "/dashboard",
     });
 
     setLoading(false);
@@ -54,6 +55,17 @@ export function SignupForm({
     }
 
     router.push("/dashboard");
+  };
+
+  const handleGoogleSignIn = async () => {
+    setErrorMessage("");
+    const { error } = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/dashboard",
+    });
+    if (error) {
+      setErrorMessage(error.message || "Google signup failed");
+    }
   };
 
   return (
@@ -145,9 +157,7 @@ export function SignupForm({
             variant="outline"
             type="button"
             className="w-full"
-            onClick={() =>
-              authClient.signIn.social({ provider: "google" })
-            }
+            onClick={handleGoogleSignIn}
           >
             <FcGoogle />
             Sign up with Google
