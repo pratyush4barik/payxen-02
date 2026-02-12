@@ -1,4 +1,4 @@
-# SubWallet Requirements and Setup
+# PayXen Requirements and Setup
 
 ## System Requirements
 - Node.js 20+

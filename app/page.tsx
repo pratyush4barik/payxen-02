@@ -11,7 +11,7 @@ const LandingPage: React.FC<{ handleLogin: () => void  ; handleSignup: () => voi
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <div className="flex items-center gap-2">
             <div className="h-9 w-9 rounded-xl bg-indigo-600" />
-            <span className="text-lg font-semibold tracking-tight">SubWallet</span>
+            <span className="text-lg font-semibold tracking-tight">PayXen</span>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -43,7 +43,7 @@ const LandingPage: React.FC<{ handleLogin: () => void  ; handleSignup: () => voi
                 Control every recurring payment from one secure student wallet.
               </h1>
               <p className="mt-4 max-w-xl text-base text-slate-600 sm:text-lg">
-                SubWallet helps students manage subscriptions, hold funds in an escrow-style
+                PayXen helps students manage subscriptions, hold funds in an escrow-style
                 flow, and release payments only when charges are validated.
               </p>
               <button
@@ -123,7 +123,7 @@ const LandingPage: React.FC<{ handleLogin: () => void  ; handleSignup: () => voi
 
       <footer className="border-t border-slate-200 bg-slate-50">
         <div className="mx-auto w-full max-w-6xl px-4 py-8 text-sm text-slate-500 sm:px-6">
-          © 2026 SubWallet. All rights reserved.
+          © 2026 PayXen. All rights reserved.
         </div>
       </footer>
     </div>

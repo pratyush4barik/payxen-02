@@ -5,6 +5,12 @@ import { internalTransfers, transactions, wallet } from "@/db/schema";
 import { requireSession } from "@/lib/require-session";
 import { addMoneyAction, withdrawMoneyAction } from "@/app/wallet/actions";
 
+const formatInr = (value: string | number) => {
+  const num = typeof value === "number" ? value : Number.parseFloat(value);
+  if (!Number.isFinite(num)) return "₹0.00";
+  return `₹${num.toFixed(2)}`;
+};
+
 type WalletPageProps = {
   searchParams?: Promise<{
     success?: string;
@@ -76,7 +82,7 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
 
       <section className="rounded-xl border p-6">
         <p className="text-sm text-muted-foreground">Current Balance</p>
-        <p className="mt-2 text-3xl font-semibold">{userWallet.balance}</p>
+        <p className="mt-2 text-3xl font-semibold">{formatInr(userWallet.balance)}</p>
       </section>
 
       <section className="grid gap-4 md:grid-cols-2">
@@ -90,7 +96,7 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
               className="w-full rounded-md border px-3 py-2 text-sm"
               min="0.01"
               name="amount"
-              placeholder="Amount"
+              placeholder="Amount (₹)"
               required
               step="0.01"
               type="number"
@@ -114,7 +120,7 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
               className="w-full rounded-md border px-3 py-2 text-sm"
               min="0.01"
               name="amount"
-              placeholder="Amount"
+              placeholder="Amount (₹)"
               required
               step="0.01"
               type="number"
@@ -140,7 +146,7 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
                 <li className="rounded-lg border p-3" key={txn.id}>
                   <p className="font-medium">{txn.type}</p>
                   <p className="text-sm text-muted-foreground">
-                    {txn.amount} | {txn.referenceType}
+                    {formatInr(txn.amount)} | {txn.referenceType}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     {txn.description || "No description"}
@@ -166,7 +172,9 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
               .map((transfer) => (
                 <div className="rounded-lg border p-3" key={transfer.id}>
                   <p className="font-medium">{transfer.status}</p>
-                  <p className="text-sm text-muted-foreground">{transfer.amount}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {formatInr(transfer.amount)}
+                  </p>
                 </div>
               ))}
           </div>
