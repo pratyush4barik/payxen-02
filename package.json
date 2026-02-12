@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "setup": "npm ci && npx drizzle-kit migrate",
+    "hooks:install": "git config core.hooksPath .githooks"
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
