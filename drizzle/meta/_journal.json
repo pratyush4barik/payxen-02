@@ -15,6 +15,48 @@
       "when": 1770917915042,
       "tag": "0001_far_angel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1770922374611,
+      "tag": "0002_wooden_wind_dancer",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1770929706128,
+      "tag": "0003_subscription_checkout_flow",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1770930746347,
+      "tag": "0004_remove_subscription_plans_table",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1770930772266,
+      "tag": "0005_unique_active_subscription_account",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1770931586023,
+      "tag": "0006_subscription_trial_pending_cancel",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1770932368105,
+      "tag": "0007_subscription_unique_per_plan",
+      "breakpoints": true
     }
   ]
 }
